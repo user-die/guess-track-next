@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface CounterState {
+interface CounterState {
   token: string;
+  search: string;
   artist: {};
   searchModal: boolean;
+  tracks: any;
+  points: number;
+  currentTrack: number;
+  plug: boolean;
+  finish: boolean;
+  correct: boolean;
 }
 
 export type Artist = {
@@ -17,8 +24,15 @@ export type Artist = {
 
 const initialState: CounterState = {
   token: "",
+  search: "",
   artist: {},
   searchModal: false,
+  tracks: null,
+  points: 0,
+  currentTrack: 0,
+  plug: true,
+  finish: false,
+  correct: false,
 };
 
 export const counterSlice = createSlice({
@@ -37,11 +51,47 @@ export const counterSlice = createSlice({
     hideSearchModal: (state) => {
       state.searchModal = false;
     },
+    setTracks: (state, action) => {
+      state.tracks = action.payload;
+    },
+    nextTrack: (state) => {
+      if (state.tracks && state.currentTrack + 1 < state.tracks.length)
+        state.currentTrack++;
+    },
+    addPoint: (state) => {
+      state.points++;
+    },
+    togglePlug: (state, action) => {
+      state.plug = action.payload;
+    },
+    setFinish: (state, action) => {
+      state.finish = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
+    clearState: (state) => {
+      state = initialState;
+    },
+    setCorrect: (state, action) => {
+      state.correct = action.payload;
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { setToken, setArtist, showSearchModal, hideSearchModal } =
-  counterSlice.actions;
+export const {
+  setToken,
+  setArtist,
+  showSearchModal,
+  hideSearchModal,
+  setTracks,
+  nextTrack,
+  addPoint,
+  togglePlug,
+  setFinish,
+  setSearch,
+  clearState,
+  setCorrect,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;

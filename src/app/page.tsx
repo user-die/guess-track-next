@@ -1,23 +1,18 @@
 "use client";
-import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useGetTokenQuery } from "@/store";
-import { setToken } from "@/store/slice";
+import { useDispatch } from "react-redux";
+import { hideSearchModal } from "@/store/slice";
 
 export default function Home() {
   const router = useRouter();
-  const { data: token } = useGetTokenQuery({});
+  const { data: token, isSuccess } = useGetTokenQuery({});
+  var dispatch = useDispatch();
 
-  if (token) localStorage.setItem("token", token.access_token);
-  /*
-  const dispatch = useDispatch();
+  dispatch(hideSearchModal());
 
-   dispatch(setToken(token.access_token));
-  */
+  if (isSuccess) localStorage.setItem("token", token.access_token);
+  if (isSuccess) router.push("search");
 
-  return (
-    <main>
-      <button onClick={() => router.push("search")}>search</button>
-    </main>
-  );
+  return <main></main>;
 }

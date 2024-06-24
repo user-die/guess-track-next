@@ -1,0 +1,88 @@
+.artistCard {
+  width: 292px;
+  height: 322px;
+  border-radius: 23px;
+  border: 3px solid #468099;
+  background: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+.artistCard:hover {
+  background: rgba(255, 0, 199, 0);
+}
+
+.artistName {
+  margin-bottom: 18px;
+  font-size: 18px;
+  line-height: 20.43px;
+  font-weight: 700;
+}
+
+.genres {
+  margin-top: 18px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20.43px;
+  color: #ababab;
+}
+
+.modalImage {
+  border-radius: 23px;
+  border: 3px solid #468099;
+}
+
+.modalName {
+  text-align: center;
+  margin-top: 23px;
+  font-size: 40px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 54.47px;
+  margin-bottom: 0;
+}
+
+.startButton {
+  margin-left: 20px;
+  background: #468099;
+  border: none;
+  color: #ffffff;
+}
+
+.cancelButton {
+  background: #ababab;
+  border: none;
+  color: #ffffff;
+}
+
+.playerContain {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+
+.plug {
+  top: 13%;
+  position: absolute;
+  background-color: rgb(40, 40, 40);
+  width: 580px;
+  height: 260px;
+}
+
+.plug1 {
+  top: 73%;
+  right: 36%;
+  position: absolute;
+  background-color: rgb(40, 40, 40);
+  width: 25px;
+  height: 25px;
+}
+
+.answerContain {
+  margin: 0 auto;
+  display: flex;
+  width: 330px;
+  flex-direction: column;
+  align-items: center;
+}

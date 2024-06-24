@@ -26,10 +26,21 @@ export const spotiApi = createApi({
         headers: {
           Authorization: `Bearer ${obj.token}`,
         },
-        params: `?q=this+is+${obj.artist}&type=playlist&limit=50`,
+        params: `?q=${obj.artist}&type=playlist&limit=50`,
+      }),
+    }),
+
+    getTracks: build.query<any, object>({
+      query: (obj: { href: string; token: string }): any => ({
+        url: `playlists/${obj.href}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${obj.token}`,
+        },
       }),
     }),
   }),
 });
 
-export const { useSearchQuery, useGetPlaylistQuery } = spotiApi;
+export const { useSearchQuery, useGetPlaylistQuery, useGetTracksQuery } =
+  spotiApi;
