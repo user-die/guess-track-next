@@ -1,18 +1,38 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useGetTokenQuery } from "@/store";
-import { useDispatch } from "react-redux";
-import { hideSearchModal } from "@/store/slice";
+import { RootState, useGetTokenQuery } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deletePoints,
+  hideSearchModal,
+  setToken,
+  deleteCurrentTrack,
+  setTracks,
+  deleteGuessedTracks,
+  setFinish,
+} from "@/store/slice";
+import { useEffect } from "react";
 
 export default function Home() {
-  const router = useRouter();
-  const { data: token, isSuccess } = useGetTokenQuery({});
+  var state = useSelector((state: RootState) => state.store);
+  var router = useRouter();
+  var { data: token, isSuccess } = useGetTokenQuery({});
   var dispatch = useDispatch();
 
-  dispatch(hideSearchModal());
+  useEffect(() => {
+    dispatch(deletePoints());
+    dispatch(deleteCurrentTrack());
+    dispatch(hideSearchModal());
+    dispatch(setTracks([]));
+    dispatch(deleteGuessedTracks());
+    dispatch(setFinish(false));
+  }, [dispatch]);
 
-  if (isSuccess) localStorage.setItem("token", token.access_token);
-  if (isSuccess) router.push("search");
+  useEffect(() => {
+    if (isSuccess) dispatch(setToken(token.access_token));
 
-  return <main></main>;
+    if (state.token) router.push("search");
+  }, [token, dispatch, isSuccess, router, state.token]);
+
+  return;
 }

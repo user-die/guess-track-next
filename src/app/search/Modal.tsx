@@ -4,9 +4,10 @@ import Image from "next/image";
 import { RootState } from "@/store";
 import style from "./../style.module.css";
 import { useRouter } from "next/navigation";
-import { hideSearchModal, clearState } from "@/store/slice";
+import { hideSearchModal } from "@/store/slice";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import defaultAvatar from "./../default-avatar.png";
 
 export const ModalWindow = memo(function ModalWindow() {
   const router = useRouter();
@@ -20,12 +21,17 @@ export const ModalWindow = memo(function ModalWindow() {
           className={style.modalImage}
           width={300}
           height={300}
-          src={state.artist.image || ""}
+          src={state.artist.image || defaultAvatar}
           alt="qwe"
         />
         <p className={style.modalName}>{state.artist.name}</p>
 
-        <p className={style.genres}>Жанры: {state.artist.genres}</p>
+        <p className={style.genres}>
+          Жанры:{" "}
+          {state.artist?.genres?.map((el) => (
+            <span key={el}>{el} </span>
+          ))}
+        </p>
       </Modal.Body>
 
       <Modal.Footer className="d-flex justify-content-center">
@@ -41,7 +47,6 @@ export const ModalWindow = memo(function ModalWindow() {
             className={style.startButton}
             onClick={() => {
               router.push("/game");
-              // dispatch(clearState());
             }}
           >
             Играть

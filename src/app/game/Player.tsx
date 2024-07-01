@@ -1,5 +1,5 @@
 "use client";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { setTracks } from "@/store/slice";
 import style from "./../style.module.css";
 import { useGetTracksQuery, RootState } from "@/store";
@@ -7,40 +7,60 @@ import { useDispatch, useSelector } from "react-redux";
 
 type Props = {
   id: string;
-  token: string;
 };
 
-export const Player = memo(function Player({ id, token }: Props) {
-  var { data, isSuccess } = useGetTracksQuery({
+export var Player = memo(function Player({ id }: Props) {
+  var state = useSelector((state: RootState) => state.store);
+  var token = state.token;
+
+  var { data, isSuccess, isError } = useGetTracksQuery({
     href: id,
     token,
   });
 
-  const dispatch = useDispatch();
+  var dispatch = useDispatch();
 
-  if (isSuccess) dispatch(setTracks(data.tracks.items));
+  useEffect(() => {
+    dispatch(
+      setTracks(
+        data?.tracks?.items?.map(
+          (el: any) => (el = { name: el.track.name, id: el.track.id })
+        )
+      )
+    );
+  }, [data, isSuccess, dispatch]);
 
-  const state = useSelector((state: RootState) => state.store);
-
-  if (state.tracks) {
+  if (isError) {
     return (
-      <>
-        <div className={style.playerContain}>
-          {state.plug && <div className={style.plug}></div>}
-          {state.plug && <div className={style.plug1}></div>}
-
-          <iframe
-            style={{ borderRadius: "12px" }}
-            src={`https://open.spotify.com/embed/track/${
-              state.tracks[state.currentTrack].track.id
-            }?utm_source=generator&theme=0`}
-            width="1000px"
-            height="400px"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          ></iframe>
-        </div>
-      </>
+      <h1 className="text-center my-5">
+        Игра не поддерживается в вашей стране. Включите vpn
+      </h1>
     );
   }
+
+  return (
+    <div className={style.playerContain}>
+      <div className={`${style.plug} ${style.mainPlug}`}></div>
+
+      {state.plug && (
+        <div className={`${style.plug} ${style.plug2}`}>
+          <div className={`${style.plug} ${style.plug1}`}></div>
+        </div>
+      )}
+      {state.plug && <div className={`${style.plug} ${style.plug3}`}></div>}
+
+      {state.tracks?.length > 1 && !isError && (
+        <iframe
+          style={{ borderRadius: "12px" }}
+          src={`https://open.spotify.com/embed/track/${
+            state.tracks[state.currentTrack].id
+          }?utm_source=generator&theme=0`}
+          width="80%"
+          height="60%"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      )}
+    </div>
+  );
 });

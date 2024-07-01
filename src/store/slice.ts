@@ -12,6 +12,7 @@ interface CounterState {
   plug: boolean;
   finish: boolean;
   correct: boolean;
+  guessedTracks: any;
 }
 
 export type Artist = {
@@ -27,12 +28,13 @@ const initialState: CounterState = {
   search: "",
   artist: {},
   searchModal: false,
-  tracks: null,
+  tracks: [],
   points: 0,
   currentTrack: 0,
   plug: true,
   finish: false,
   correct: false,
+  guessedTracks: [],
 };
 
 export const counterSlice = createSlice({
@@ -70,11 +72,23 @@ export const counterSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
-    clearState: (state) => {
-      state = initialState;
-    },
     setCorrect: (state, action) => {
       state.correct = action.payload;
+    },
+    deletePoints: (state) => {
+      state.points = 0;
+    },
+    deleteCurrentTrack: (state) => {
+      state.currentTrack = 0;
+    },
+    addGuessedTrack: (state, action) => {
+      state.guessedTracks = [...state.guessedTracks, action.payload];
+    },
+    deleteGuessedTracks: (state) => {
+      state.guessedTracks = [];
+    },
+    setCurrentTrack: (state) => {
+      state.currentTrack = state.tracks.length - 1;
     },
   },
 });
@@ -90,8 +104,12 @@ export const {
   togglePlug,
   setFinish,
   setSearch,
-  clearState,
   setCorrect,
+  deletePoints,
+  deleteCurrentTrack,
+  addGuessedTrack,
+  deleteGuessedTracks,
+  setCurrentTrack,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

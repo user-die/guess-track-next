@@ -10,19 +10,20 @@ import {
   setCorrect,
   setFinish,
   togglePlug,
+  addGuessedTrack,
 } from "@/store/slice";
 
-export const Answer = memo(function Answer({}) {
-  const [answer, setAnswer] = useState("");
+export var Answer = memo(function Answer({}) {
+  var [answer, setAnswer] = useState("");
 
-  const dispatch = useDispatch();
-  const state = useSelector((state: RootState) => state.store);
+  var dispatch = useDispatch();
+  var state = useSelector((state: RootState) => state.store);
 
-  const checkAnswer = useCallback(() => {
+  var checkAnswer = useCallback(() => {
     if (
-      state.tracks &&
+      state.tracks?.length > 1 &&
       answer.toLowerCase().replaceAll(" ", "") ===
-        state.tracks[state.currentTrack].track.name
+        state.tracks[state.currentTrack].name
           .toLowerCase()
           .replace(/.\(.+\)/, "")
           .replaceAll(" ", "")
@@ -31,6 +32,7 @@ export const Answer = memo(function Answer({}) {
       dispatch(addPoint());
       dispatch(togglePlug(false));
       dispatch(setCorrect(true));
+      dispatch(addGuessedTrack(state.tracks[state.currentTrack]));
       setAnswer("");
     }
 
@@ -54,7 +56,7 @@ export const Answer = memo(function Answer({}) {
       />
 
       <p style={{ margin: "20px" }}>
-        Ваши очки: {state.points} / {state.tracks && state.tracks.length}
+        Ваши очки: {state.points} / {(state.tracks && state.tracks.length) || 0}
       </p>
 
       <Button

@@ -10,16 +10,12 @@ export const Search = memo(function Search() {
   var search = useSelector((state: RootState) => state.store.search);
 
   return (
-    <>
-      <h1 className="text-center">Guess Track</h1>
-
-      <Form.Control
-        className="w-50"
-        type="text"
-        placeholder="Выберите исполнителя"
-        value={search}
-        onChange={(e) => dispatch(setSearch(e.target.value))}
-      />
-    </>
+    <Form.Control
+      className="w-50"
+      type="text"
+      placeholder="Выберите исполнителя"
+      value={search}
+      onChange={(e) => dispatch(setSearch(e.target.value))}
+    />
   );
 });

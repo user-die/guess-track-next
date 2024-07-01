@@ -5,6 +5,7 @@ import style from "./../style.module.css";
 import { useSearchQuery } from "@/store/spotiApi";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import defaultAvatar from "./../default-avatar.png";
 
 type artistType = {
   external_urls: {
@@ -29,8 +30,8 @@ type Props = {
 };
 
 export const ArtistsList = memo(function ArtistsList({ buttonClick }: Props) {
-  const token = localStorage.getItem("token");
   var search = useSelector((state: RootState) => state.store.search);
+  var token = useSelector((state: RootState) => state.store.token);
 
   const { data } = useSearchQuery({ artist: search, token });
 
@@ -52,8 +53,10 @@ export const ArtistsList = memo(function ArtistsList({ buttonClick }: Props) {
             <Image
               width={146}
               height={146}
-              src={(el.images.length > 0 && el.images[1]["url"]) || ""}
-              alt="qwe"
+              src={
+                (el.images.length > 0 && el.images[1]["url"]) || defaultAvatar
+              }
+              alt={`${defaultAvatar}`}
             />
             <p className={style.genres}>
               Жанры :{" "}

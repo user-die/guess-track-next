@@ -7,7 +7,7 @@ const data = {
 
 export const getToken = createApi({
   reducerPath: "getToken",
-  keepUnusedDataFor: 30 * 1000,
+  keepUnusedDataFor: 0,
   baseQuery: fetchBaseQuery({
     baseUrl: "https://accounts.spotify.com/api/",
     prepareHeaders: (headers) => {
@@ -22,6 +22,7 @@ export const getToken = createApi({
       return headers;
     },
   }),
+
   endpoints: (build) => ({
     getToken: build.query({
       query: () => ({
