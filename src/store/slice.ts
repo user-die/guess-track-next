@@ -1,10 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+export type Artist = {
+  name: string;
+  image: string;
+  genres: string[];
+  id: string;
+  url: string;
+};
+
 interface CounterState {
   token: string;
   search: string;
-  artist: {};
+  artist: Artist;
   searchModal: boolean;
   tracks: any;
   points: number;
@@ -15,18 +23,16 @@ interface CounterState {
   guessedTracks: any;
 }
 
-export type Artist = {
-  name: string;
-  image: string;
-  genres: string[];
-  id: string;
-  url: string;
-};
-
 const initialState: CounterState = {
   token: "",
   search: "",
-  artist: {},
+  artist: {
+    name: "",
+    image: "",
+    genres: [],
+    id: "",
+    url: "",
+  },
   searchModal: false,
   tracks: [],
   points: 0,
