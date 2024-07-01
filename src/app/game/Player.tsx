@@ -32,7 +32,7 @@ export var Player = memo(function Player({ id }: Props) {
 
   if (isError) {
     return (
-      <h1 className="text-center my-5">
+      <h1 className="text-center my-5 text-white">
         Игра не поддерживается в вашей стране. Включите vpn
       </h1>
     );
@@ -47,6 +47,7 @@ export var Player = memo(function Player({ id }: Props) {
           <div className={`${style.plug} ${style.plug1}`}></div>
         </div>
       )}
+
       {state.plug && <div className={`${style.plug} ${style.plug3}`}></div>}
 
       {state.tracks?.length > 1 && !isError && (

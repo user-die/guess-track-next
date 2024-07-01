@@ -26,7 +26,7 @@ export var Finish = memo(function Finish() {
 
   return (
     <Modal show={state.finish}>
-      <Modal.Body className="d-flex flex-column align-items-center">
+      <Modal.Body className="d-flex flex-column align-items-center bg-dark">
         <p>Вы набрали: {state.points} очков</p>
 
         <div>
@@ -41,7 +41,7 @@ export var Finish = memo(function Finish() {
         </div>
       </Modal.Body>
 
-      <Modal.Footer className="d-flex flex-column">
+      <Modal.Footer className="d-flex flex-column bg-dark text-white">
         {state.guessedTracks.length > 0 && (
           <>
             <h3>Вы угадали :</h3>

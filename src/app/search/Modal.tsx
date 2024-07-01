@@ -16,7 +16,7 @@ export const ModalWindow = memo(function ModalWindow() {
 
   return (
     <Modal show={state.searchModal} onHide={() => dispatch(hideSearchModal())}>
-      <Modal.Body className="d-flex flex-column align-items-center">
+      <Modal.Body className="d-flex flex-column align-items-center bg-dark">
         <Image
           className={style.modalImage}
           width={300}
@@ -34,7 +34,7 @@ export const ModalWindow = memo(function ModalWindow() {
         </p>
       </Modal.Body>
 
-      <Modal.Footer className="d-flex justify-content-center">
+      <Modal.Footer className="d-flex justify-content-center bg-dark">
         <div>
           <Button
             variant="secondary"

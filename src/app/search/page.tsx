@@ -36,7 +36,7 @@ export default function Page() {
 
   return (
     <div className="container">
-      <h1 className="text-center position-absolute top-0 start-0">
+      <h1 className="text-center position-absolute top-0 start-0 text-white">
         Guess Track
       </h1>
 

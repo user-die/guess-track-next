@@ -47,7 +47,7 @@ export var Answer = memo(function Answer({}) {
 
   return (
     <div className={style.answerContain}>
-      {state.correct && <p>Верно!</p>}
+      {state.correct && <p className="text-white">Верно!</p>}
       <Form.Control
         type="text"
         placeholder="Угадайте трек"
@@ -55,7 +55,7 @@ export var Answer = memo(function Answer({}) {
         onChange={(e) => setAnswer(e.target.value)}
       />
 
-      <p style={{ margin: "20px" }}>
+      <p style={{ margin: "20px" }} className="text-white">
         Ваши очки: {state.points} / {(state.tracks && state.tracks.length) || 0}
       </p>
 
